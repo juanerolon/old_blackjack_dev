@@ -205,14 +205,20 @@ def testDeck():
 
     card = myDeck.draw_card()
     print(card)
+    for el in card:
+        print(el)
     print(myDeck.getCards_count())
 
     card = myDeck.draw_card()
     print(card)
+    for el in card:
+        print(el)
     print(myDeck.getCards_count())
     
     card = myDeck.draw_card()
     print(card)
+    for el in card:
+        print(el)
     print(myDeck.getCards_count())
           
     
@@ -236,13 +242,55 @@ def testBet():
     print(p1b.balance)
     p1b.make_bet(650)
     print(p1b.balance)
-    print(p1b.status)             
+    print(p1b.status)
+
+
+
+class Dealer:
+    
+    def __init__(self):
+        
+        self.hand_value = 0
+        self.hand = []
+        
+    def action_hit(self):
+        if self.hand_value < 15:
+            return True
+        else:
+            return False
+        
+    def black_jack(self):
+        if self.hand_value == 21:
+            return True
+        
+class Player:
+    
+    def __init__(self):
+        
+        self.hand_value = 0
+        self.hand = []
+        self.bet = Bet()
+        
+        
+        
+    
+        
+                 
         
     
         
 if __name__ == "__main__":
     
-    testDeck()
+    P1 = Player()
+    Dl = Dealer()
+    
+    game_status = True
+    ct =0
+    
+    while (game_status or (ct < 20)):
+        
+        
+    
   
     
     
