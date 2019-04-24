@@ -116,7 +116,7 @@ class Deck:
             self.__n+=1
             
         random.shuffle(self.__cardIndex)
-        print(self.__cardIndex)
+        #print(self.__cardIndex)
     
         
         self.__cards[1] = ["Ace", "Ace of Clubs", 11]
@@ -252,6 +252,17 @@ class Dealer:
         
         self.hand_value = 0
         self.hand = []
+        self.hand_ct = 0
+        
+    def update_hand(self, card):
+        self.hand.append(card)
+        self.hand_value = self.hand_value + self.hand[self.hand_ct][2]
+        self.hand_ct +=1
+        
+    def clear_hand(self):
+        del self.hand[:]
+        self.hand_value = 0
+        self.hand_ct = 0
         
     def action_hit(self):
         if self.hand_value < 15:
@@ -263,19 +274,38 @@ class Dealer:
         if self.hand_value == 21:
             return True
         
+    def busted(self):
+        if self.hand_value > 21:
+            return True
+        
 class Player:
     
     def __init__(self):
         
         self.hand_value = 0
         self.hand = []
+        self.hand_ct = 0
         self.bet = Bet()
         
+    def update_hand(self, card):
+        self.hand.append(card)
+        self.hand_value = self.hand_value + self.hand[self.hand_ct][2]
+        self.hand_ct +=1
+        
+    def black_jack(self):
+        if self.hand_value == 21:
+            return True
+        
+    def busted(self):
+        if self.hand_value > 21:
+            return True
+        
+    def clear_hand(self):
+        del self.hand[:]
+        self.hand_value = 0
+        self.hand_ct = 0
         
         
-    
-        
-                 
         
     
         
@@ -284,10 +314,32 @@ if __name__ == "__main__":
     P1 = Player()
     Dl = Dealer()
     
+    gameDeck = Deck()
+    
     game_status = True
     ct =0
     
-    while (game_status or (ct < 20)):
+    Dl.update_hand(gameDeck.draw_card())
+    Dl.update_hand(gameDeck.draw_card())
+    
+    print(Dl.hand)
+    print(Dl.hand_value)
+    Dl.clear_hand()
+    print(Dl.hand)
+    print(Dl.hand_value)
+    
+    
+    Dl.update_hand(gameDeck.draw_card())
+    Dl.update_hand(gameDeck.draw_card())
+    
+    print(Dl.hand)
+    print(Dl.hand_value)
+    print(Dl.action_hit())
+    
+    
+    
+    
+  
         
         
     
