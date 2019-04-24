@@ -270,13 +270,17 @@ class Dealer:
         else:
             return False
         
-    def black_jack(self):
+    def blackjack(self):
         if self.hand_value == 21:
             return True
+        else:
+            return False
         
     def busted(self):
         if self.hand_value > 21:
             return True
+        else:
+            return False
         
 class Player:
     
@@ -292,13 +296,17 @@ class Player:
         self.hand_value = self.hand_value + self.hand[self.hand_ct][2]
         self.hand_ct +=1
         
-    def black_jack(self):
+    def blackjack(self):
         if self.hand_value == 21:
             return True
+        else:
+            return False
         
     def busted(self):
         if self.hand_value > 21:
             return True
+        else:
+            return False
         
     def clear_hand(self):
         del self.hand[:]
@@ -316,25 +324,41 @@ if __name__ == "__main__":
     
     gameDeck = Deck()
     
-    game_status = True
-    ct =0
+  
+    if False:
+    
+        Dl.update_hand(gameDeck.draw_card())
+        Dl.update_hand(gameDeck.draw_card())
+        
+        print(Dl.hand)
+        print(Dl.hand_value)
+        Dl.clear_hand()
+        print(Dl.hand)
+        print(Dl.hand_value)
+    
+    
+    print("\nDealer:\n")
     
     Dl.update_hand(gameDeck.draw_card())
     Dl.update_hand(gameDeck.draw_card())
     
     print(Dl.hand)
-    print(Dl.hand_value)
-    Dl.clear_hand()
-    print(Dl.hand)
-    print(Dl.hand_value)
+    print("Dealer hand value: {}".format(Dl.hand_value))
+    print("Dealer action hit?: {}".format(Dl.action_hit()))
+    print("Dealer blackjack?: {}".format(Dl.blackjack()))
+    print("Dealer busted?: {}".format(Dl.busted()))
+    
+    print("\nPlayer:\n")
+    
+    P1.update_hand(gameDeck.draw_card())
+    P1.update_hand(gameDeck.draw_card())
+    print(P1.hand)
+    print("Player hand value: {}".format(P1.hand_value))
+    print("Player blackjack?: {}".format(P1.blackjack()))
+    print("Player busted?: {}".format(P1.busted()))
     
     
-    Dl.update_hand(gameDeck.draw_card())
-    Dl.update_hand(gameDeck.draw_card())
-    
-    print(Dl.hand)
-    print(Dl.hand_value)
-    print(Dl.action_hit())
+    print(gameDeck.getCards_count())
     
     
     
