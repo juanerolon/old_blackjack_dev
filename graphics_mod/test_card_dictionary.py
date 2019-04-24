@@ -230,10 +230,15 @@ class Bet:
         self.status = True
                 
     def make_bet(self,amount):
+        self.balance = self.balance - amount
+
+    def can_bet(self,amount):
         if (amount > self.balance and self.balance > 0):
             self.status = False
+            return False
         else:
-            self.balance = self.balance - amount
+            self.status = True
+            return True
 
 def testBet():
             
@@ -289,8 +294,18 @@ class Player:
         self.hand_value = 0
         self.hand = []
         self.hand_ct = 0
-        self.bet = Bet()
+        self.__sysbet = Bet()
         
+    
+    def can_bet(self,amout):
+        self.__sysbet.can_bet(amount)
+    
+    def make_bet(self,amount):
+        self.__sysbet.make_bet(amount)
+        
+    def get_balance(self):
+        return self.__sysbet.balance       
+    
     def update_hand(self, card):
         self.hand.append(card)
         self.hand_value = self.hand_value + self.hand[self.hand_ct][2]
