@@ -10,96 +10,8 @@ Created on Tue Apr 23 15:34:30 2019
 
 import random
 
-
-def test_deck():
-
-    deck = {}
-    
-    #clubs
-    
-    deck[1] = ["Ace", "Ace of Clubs", 11]
-    deck[2] = ["2", "Two of Clubs",2]
-    deck[3] = ["3", "Three of Clubs",3]
-    deck[4] = ["4", "Four of Clubs",4]
-    deck[5] = ["5", "Five of Clubs",5]
-    deck[6] = ["6", "Six of Clubs",6]
-    deck[7] = ["7", "Seven of Clubs",7]
-    deck[8] = ["8", "Eight of Clubs",8]
-    deck[9] = ["9", "Nine of Clubs",9]
-    deck[10] = ["10", "Ten of Clubs",10]
-    deck[11] = ["Jack", "Jack of Clubs",10]
-    deck[12] = ["King", "King of Clubs",10]
-    deck[13] = ["Queen", "Queen of Clubs",10]
-    
-    #diamonds
-    
-    deck[14] = ["Ace", "Ace of Diamonds", 11]
-    deck[15] = ["2", "Two of Diamonds",2]
-    deck[16] = ["3", "Three of Diamonds",3]
-    deck[17] = ["4", "Four of Diamonds",4]
-    deck[18] = ["5", "Five of Diamonds",5]
-    deck[19] = ["6", "Six of Diamonds",6]
-    deck[20] = ["7", "Seven of Diamonds",7]
-    deck[21] = ["8", "Eight of Diamonds",8]
-    deck[22] = ["9", "Nine of Diamonds",9]
-    deck[23] = ["10", "Ten of Diamonds",10]
-    deck[24] = ["Jack", "Jack of Diamonds",10]
-    deck[25] = ["King", "King of Diamonds",10]
-    deck[26] = ["Queen", "Queen of Diamonds",10]
-    
-    
-    #hearts
-    
-    deck[27] = ["Ace", "Ace of Hearts", 11]
-    deck[28] = ["2", "Two of Hearts",2]
-    deck[29] = ["3", "Three of Hearts",3]
-    deck[30] = ["4", "Four of Hearts",4]
-    deck[31] = ["5", "Five of Hearts",5]
-    deck[32] = ["6", "Six of Hearts",6]
-    deck[33] = ["7", "Seven of Hearts",7]
-    deck[34] = ["8", "Eight of Hearts",8]
-    deck[35] = ["9", "Nine of Hearts",9]
-    deck[36] = ["10", "Ten of Hearts",10]
-    deck[37] = ["Jack", "Jack of Hearts",10]
-    deck[38] = ["King", "King of Hearts",10]
-    deck[39] = ["Queen", "Queen of Hearts",10]
-    
-    
-    #spades
-    
-    deck[40] = ["Ace", "Ace of Spades", 11]
-    deck[41] = ["2", "Two of Spades",2]
-    deck[42] = ["3", "Three of Spades",3]
-    deck[43] = ["4", "Four of Spades",4]
-    deck[44] = ["5", "Five of Spades",5]
-    deck[45] = ["6", "Six of Spades",6]
-    deck[46] = ["7", "Seven of Spades",7]
-    deck[47] = ["8", "Eight of Spades",8]
-    deck[48] = ["9", "Nine of Spades",9]
-    deck[49] = ["10", "Ten of Spades",10]
-    deck[50] = ["Jack", "Jack of Spades",10]
-    deck[51] = ["King", "King of Spades",10]
-    deck[52] = ["Queen", "Queen of Spades",10]
-    
-    
-    #draw 20 cards
-    
-    print("\n\n")
-    print("Deck size: {}\n".format(len(deck)))
-    
-    ct = 0
-    while ct < 2:
-        rancard = random.randrange(1,52)
-        print(deck[rancard])
-        del deck[rancard]
-        ct +=1
-        
-    print("\n")
-    print("Remaining deck size: {}\n".format(len(deck)))
-    
-    
-    
-    
+#----------------------------- classes ----------------------------------------
+   
 class Deck:
     
     def __init__(self):
@@ -198,30 +110,6 @@ class Deck:
         random.shuffle(self.__cardIndex)
         
         
-def testDeck():
-    
-    myDeck = Deck()
-    print(myDeck.getCards_count())
-
-    card = myDeck.draw_card()
-    print(card)
-    for el in card:
-        print(el)
-    print(myDeck.getCards_count())
-
-    card = myDeck.draw_card()
-    print(card)
-    for el in card:
-        print(el)
-    print(myDeck.getCards_count())
-    
-    card = myDeck.draw_card()
-    print(card)
-    for el in card:
-        print(el)
-    print(myDeck.getCards_count())
-          
-    
 class Bet:
     
     def __init__(self):
@@ -240,14 +128,6 @@ class Bet:
             self.status = True
             return True
 
-def testBet():
-            
-    p1b = Bet()
-    p1b.make_bet(100)
-    print(p1b.balance)
-    p1b.make_bet(650)
-    print(p1b.balance)
-    print(p1b.status)
 
 
 
@@ -258,11 +138,14 @@ class Dealer:
         self.hand_value = 0
         self.hand = []
         self.hand_ct = 0
-        
+               
     def update_hand(self, card):
         self.hand.append(card)
         self.hand_value = self.hand_value + self.hand[self.hand_ct][2]
         self.hand_ct +=1
+        
+    def show_init_hand_value(self):
+        return self.hand[random.choice([0,1])][2]
         
     def clear_hand(self):
         del self.hand[:]
@@ -297,8 +180,8 @@ class Player:
         self.__sysbet = Bet()
         
     
-    def can_bet(self,amout):
-        self.__sysbet.can_bet(amount)
+    def can_bet(self,amount):
+        return self.__sysbet.can_bet(amount)
     
     def make_bet(self,amount):
         self.__sysbet.make_bet(amount)
@@ -329,7 +212,43 @@ class Player:
         self.hand_ct = 0
         
         
+#-------------------- game functions ----------------------
         
+#----------------- misc test functions --------------------    
+        
+def testBet():
+            
+    p1b = Bet()
+    p1b.make_bet(100)
+    print(p1b.balance)
+    p1b.make_bet(650)
+    print(p1b.balance)
+    print(p1b.status)
+    
+    
+def testDeck():
+    
+    myDeck = Deck()
+    print(myDeck.getCards_count())
+
+    card = myDeck.draw_card()
+    print(card)
+    for el in card:
+        print(el)
+    print(myDeck.getCards_count())
+
+    card = myDeck.draw_card()
+    print(card)
+    for el in card:
+        print(el)
+    print(myDeck.getCards_count())
+    
+    card = myDeck.draw_card()
+    print(card)
+    for el in card:
+        print(el)
+    print(myDeck.getCards_count())
+
     
         
 if __name__ == "__main__":
@@ -357,13 +276,22 @@ if __name__ == "__main__":
     Dl.update_hand(gameDeck.draw_card())
     Dl.update_hand(gameDeck.draw_card())
     
+    
     print(Dl.hand)
     print("Dealer hand value: {}".format(Dl.hand_value))
+    print("Dealer shown hand value: {}".format(Dl.show_init_hand_value()))
     print("Dealer action hit?: {}".format(Dl.action_hit()))
     print("Dealer blackjack?: {}".format(Dl.blackjack()))
     print("Dealer busted?: {}".format(Dl.busted()))
     
     print("\nPlayer:\n")
+    
+    print("Player initial balance: {}".format(P1.get_balance()))
+    bamt = 150
+    print("Is the player able to put a bet of ${}?: {}".format(bamt, P1.can_bet(bamt)))
+    if P1.can_bet(bamt):
+        P1.make_bet(bamt)
+    print("Player current balance: {}".format(P1.get_balance()))
     
     P1.update_hand(gameDeck.draw_card())
     P1.update_hand(gameDeck.draw_card())
@@ -374,6 +302,10 @@ if __name__ == "__main__":
     
     
     print(gameDeck.getCards_count())
+    
+    print(random.choice([0,1]))
+    
+    
     
     
     
