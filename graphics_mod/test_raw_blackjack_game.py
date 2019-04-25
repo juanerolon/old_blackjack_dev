@@ -304,6 +304,47 @@ def test_initial_game_stage():
         
 if __name__ == "__main__":
     
+    gD = Deck()
+    P1 = Player()
+    Dl = Dealer()
+    
+    gameFlag = True
+    
+        
+        
+    
+    flag = True
+    while flag:
+        bamt = 0
+        if P1.can_bet(bamt):
+            ans = input("Make bet (Y/N)?")
+            if ans.strip().lower() == "y":
+                flag = False
+                bamt = eval(input("Enter amount:"))
+                P1.make_bet(bamt)
+            elif ans.strip().lower() == "n":
+                ans2 = input("Stop game (Y/N)?")
+                if ans2.strip().lower() == "y":
+                    gameFlag = False
+                    break
+                elif ans2.strip().lower() == "n":
+                    continue
+                else:
+                    continue
+            else:
+                continue
+        else:
+            flag = False
+        
+    
+    print("Player current balance: {}".format(P1.get_balance()))
+    
+    
+    Dl.update_hand(gameDeck.draw_card())
+    Dl.update_hand(gameDeck.draw_card())
+    P1.update_hand(gameDeck.draw_card())
+    P1.update_hand(gameDeck.draw_card())
+    
     
     
    
