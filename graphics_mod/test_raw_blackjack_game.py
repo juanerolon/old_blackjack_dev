@@ -377,6 +377,7 @@ if __name__ == "__main__":
         ans = input("Hit (Y/N)?")
         if ans.strip().lower() == "y":
             P1.update_hand(gD.draw_card())
+            print("Player hand: {}".format(P1.hand))
             print("Player hand value: {}".format(P1.hand_value))
             print("Player blackjack?: {}".format(P1.blackjack()))
             print("Player busted?: {}".format(P1.busted()))
@@ -397,7 +398,7 @@ if __name__ == "__main__":
             while fflo:
                 if Dl.blackjack():
                     fflo = False
-                    print("Dealer gets Blackjac! Player Loss!")
+                    print("Dealer gets Blackjack! Player Loss!")
                     break
                     
                 elif Dl.busted():
@@ -409,6 +410,13 @@ if __name__ == "__main__":
                     print("Dealer hand: {}".format(Dl.hand))
                     print("Dealer actual hand value: {}".format(Dl.hand_value))
                     print("Dealer can hit?: {}".format(Dl.can_hit()))
+                    
+                    if Dl.blackjack():
+                        fflo = False
+                        flag = False
+                        print("Dealer gets Blackjack! Player Loss!")
+                        break
+                    
                     if Dl.busted():
                         fflo = False
                         flag = False
@@ -430,6 +438,12 @@ if __name__ == "__main__":
                     fflo = False
                     flag = False
                     break
+                elif Dl.hand_value == P1.hand_value:
+                    print("Push! Tied round!")
+                    fflo = False
+                    flag = False
+                    break
+                    
                 else:
                     print("Unknown condition")
                     break
