@@ -8,6 +8,7 @@ Created on Tue Apr 23 15:34:30 2019
 
 """
 
+import sys
 import random
 
 #----------------------------- classes ----------------------------------------
@@ -381,13 +382,25 @@ if __name__ == "__main__":
             print("Player busted?: {}".format(P1.busted()))
             if P1.busted():
                 print("Player busted! Player Loss!")
+                flag = False
+                break
+            elif P1.blackjack():
+                print("Player gets blackjack! Player wins!")
+                flag = False
+                gameFlag = False
+                break            
             else:
                 pass
                 
         elif ans.strip().lower() == "n":
             flag = False
             while fflo:
-                if Dl.busted():
+                if Dl.blackjack():
+                    fflo = False
+                    print("Dealer gets Blackjac! Player Loss!")
+                    break
+                    
+                elif Dl.busted():
                     fflo = False
                     print("Dealer Busted! Player Wins!")
                     break
@@ -396,6 +409,12 @@ if __name__ == "__main__":
                     print("Dealer hand: {}".format(Dl.hand))
                     print("Dealer actual hand value: {}".format(Dl.hand_value))
                     print("Dealer can hit?: {}".format(Dl.can_hit()))
+                    if Dl.busted():
+                        fflo = False
+                        flag = False
+                        print("Dealer Busted! Player Wins!")
+                        break
+                        
                     if  Dl.hand_value > P1.hand_value:
                         print("Dealer has greater hand value! Player Loss!  -X-")
                         fflo = False
