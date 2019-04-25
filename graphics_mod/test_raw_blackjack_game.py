@@ -152,7 +152,7 @@ class Dealer:
         self.hand_value = 0
         self.hand_ct = 0
         
-    def action_hit(self):
+    def can_hit(self):
         if self.hand_value < 15:
             return True
         else:
@@ -276,7 +276,7 @@ def test_initial_game_stage():
     print(Dl.hand)
     print("Dealer hand value: {}".format(Dl.hand_value))
     print("Dealer shown hand value: {}".format(Dl.show_init_hand_value()))
-    print("Dealer action hit?: {}".format(Dl.action_hit()))
+    print("Dealer action hit?: {}".format(Dl.can_hit()))
     print("Dealer blackjack?: {}".format(Dl.blackjack()))
     print("Dealer busted?: {}".format(Dl.busted()))
     
@@ -311,8 +311,6 @@ if __name__ == "__main__":
     gameFlag = True
     
         
-        
-    
     flag = True
     while flag:
         bamt = 0
@@ -339,11 +337,100 @@ if __name__ == "__main__":
     
     print("Player current balance: {}".format(P1.get_balance()))
     
+    flag = True
+    while flag:
+        
+        ans = input("Deal (Y/N)?")
+        if ans.strip().lower() == "y":
+            flag = False
+            Dl.update_hand(gD.draw_card())
+            Dl.update_hand(gD.draw_card())
+            P1.update_hand(gD.draw_card())
+            P1.update_hand(gD.draw_card())
+            print("Dealer hand: {}".format(Dl.hand))
+            print("Dealer shown hand value: {}".format(Dl.show_init_hand_value()))
+            print("Dealer actual hand value: {}".format(Dl.hand_value))
+            print("Dealer can hit?: {}".format(Dl.can_hit()))
+            print("Player hand: {}".format(P1.hand))
+            print("Player hand value: {}".format(P1.hand_value))
+            if P1.blackjack():
+                print("Player gets blackjack! Player wins!")               
+                gameFlag=False
+                break
+        elif ans.strip().lower() == "n":
+            ans2 = input("Stop game (Y/N)?")
+            if ans2.strip().lower() == "y":
+                gameFlag = False
+                break
+            elif ans2.strip().lower() == "n":
+                continue
+            else:
+                continue
+        else:
+            continue
+        
+        
+    flag = True
+    fflo = True
+    while flag:
+        ans = input("Hit (Y/N)?")
+        if ans.strip().lower() == "y":
+            P1.update_hand(gD.draw_card())
+            print("Player hand value: {}".format(P1.hand_value))
+            print("Player blackjack?: {}".format(P1.blackjack()))
+            print("Player busted?: {}".format(P1.busted()))
+            if P1.busted():
+                print("Player busted! Player Loss!")
+            else:
+                pass
+                
+        elif ans.strip().lower() == "n":
+            flag = False
+            while fflo:
+                if Dl.busted():
+                    fflo = False
+                    print("Dealer Busted! Player Wins!")
+                    break
+                elif Dl.can_hit():
+                    Dl.update_hand(gD.draw_card())
+                    print("Dealer hand: {}".format(Dl.hand))
+                    print("Dealer actual hand value: {}".format(Dl.hand_value))
+                    print("Dealer can hit?: {}".format(Dl.can_hit()))
+                    if  Dl.hand_value > P1.hand_value:
+                        print("Dealer has greater hand value! Player Loss!  -X-")
+                        fflo = False
+                        flag = False
+                        break                       
+                elif P1.hand_value > Dl.hand_value:
+                    print("Player has greater hand value! Player Wins!")
+                    fflo = False
+                    flag = False
+                    break
+                elif Dl.hand_value > P1.hand_value:
+                    print("Dealer has greater hand value! Player Loss!  -Y-")
+                    fflo = False
+                    flag = False
+                    break
+                else:
+                    print("Unknown condition")
+                    break
+        else:
+            break
+                    
+                    
+            
+        
+            
+            
+        
+        
     
-    Dl.update_hand(gameDeck.draw_card())
-    Dl.update_hand(gameDeck.draw_card())
-    P1.update_hand(gameDeck.draw_card())
-    P1.update_hand(gameDeck.draw_card())
+
+    
+
+    
+    
+
     
     
     
@@ -363,5 +450,4 @@ if __name__ == "__main__":
     
 
        
-
 
