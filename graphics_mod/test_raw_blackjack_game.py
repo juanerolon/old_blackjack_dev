@@ -248,29 +248,25 @@ def testDeck():
     for el in card:
         print(el)
     print(myDeck.getCards_count())
+    
 
+def test_clearing_hand():
+
+    Dl.update_hand(gameDeck.draw_card())
+    Dl.update_hand(gameDeck.draw_card())
     
-        
-if __name__ == "__main__":
+    print(Dl.hand)
+    print(Dl.hand_value)
+    Dl.clear_hand()
+    print(Dl.hand)
+    print(Dl.hand_value)
     
+def test_initial_game_stage():
     P1 = Player()
     Dl = Dealer()
     
     gameDeck = Deck()
-    
-  
-    if False:
-    
-        Dl.update_hand(gameDeck.draw_card())
-        Dl.update_hand(gameDeck.draw_card())
-        
-        print(Dl.hand)
-        print(Dl.hand_value)
-        Dl.clear_hand()
-        print(Dl.hand)
-        print(Dl.hand_value)
-    
-    
+       
     print("\nDealer:\n")
     
     Dl.update_hand(gameDeck.draw_card())
@@ -303,7 +299,14 @@ if __name__ == "__main__":
     
     print(gameDeck.getCards_count())
     
-    print(random.choice([0,1]))
+    
+    
+        
+if __name__ == "__main__":
+    
+    
+    
+   
     
     
     
