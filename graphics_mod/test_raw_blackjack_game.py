@@ -369,7 +369,9 @@ if __name__ == "__main__":
                 continue
         else:
             continue
-        
+    
+    #say no below when players gets blackjack from the start... need to move below
+    #code into above    
         
     flag = True
     fflo = True
