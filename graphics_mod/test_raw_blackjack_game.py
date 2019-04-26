@@ -139,10 +139,22 @@ class Dealer:
         self.hand_value = 0
         self.hand = []
         self.hand_ct = 0
+        self.aces_ct =0
+        self.ace_flag = False
                
     def update_hand(self, card):
+        
+        if card[2] == 11:
+            self.ace_flag = True
+            self.aces_ct +=1
+            
         self.hand.append(card)
         self.hand_value = self.hand_value + self.hand[self.hand_ct][2]
+        
+        if self.hand_value > 21 and self.ace_flag:
+            self.hand_value = self.had_value - 10
+            print("Dealers got soft hand")
+            
         self.hand_ct +=1
         
     def show_init_hand_value(self):
@@ -154,7 +166,8 @@ class Dealer:
         self.hand_ct = 0
         
     def can_hit(self):
-        if self.hand_value < 15:
+        """Controls when dealer should stand"""
+        if self.hand_value < 17:
             return True
         else:
             return False
@@ -178,6 +191,8 @@ class Player:
         self.hand_value = 0
         self.hand = []
         self.hand_ct = 0
+        self.aces_ct = 0
+        self.ace_flag = False
         self.__sysbet = Bet()
         
     
@@ -191,8 +206,18 @@ class Player:
         return self.__sysbet.balance       
     
     def update_hand(self, card):
+        
+        if card[2] == 11:
+            self.ace_flag = True
+            self.aces_ct +=1
+        
         self.hand.append(card)
         self.hand_value = self.hand_value + self.hand[self.hand_ct][2]
+                
+        if self.hand_value > 21 and self.ace_flag:
+            self.hand_value = self.had_value - 10
+            print("Player got soft hand")
+            
         self.hand_ct +=1
         
     def blackjack(self):
@@ -202,7 +227,7 @@ class Player:
             return False
         
     def busted(self):
-        if self.hand_value > 21:
+        if self.hand_value > 21:                
             return True
         else:
             return False
@@ -300,11 +325,10 @@ def test_initial_game_stage():
     
     print(gameDeck.getCards_count())
     
+    #----------------- game play tests ---------------------------------------
     
-    
-        
-if __name__ == "__main__":
-    
+def game_play_test1():
+          
     gD = Deck()
     P1 = Player()
     Dl = Dealer()
@@ -453,8 +477,25 @@ if __name__ == "__main__":
             break
                     
                     
-            
+if __name__ == "__main__":  
+    
+    game_play_test1()
+
+    if False:          
+    
+        gD = Deck()
+        P1 = Player()
         
+        while not P1.busted():
+            P1.update_hand(gD.draw_card())
+            print("Player hand: {}".format(P1.hand))
+            print("Player hand value: {}".format(P1.hand_value))
+            print("Player blackjack?: {}".format(P1.blackjack()))
+            print("Player busted?: {}".format(P1.busted()))
+            print("\n\n")
+    
+    
+    
             
             
         
