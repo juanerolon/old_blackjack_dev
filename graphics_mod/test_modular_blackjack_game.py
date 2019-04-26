@@ -237,98 +237,6 @@ class Player:
         self.hand_value = 0
         self.hand_ct = 0
         
-        
-#-------------------- game functions ----------------------
-        
-#----------------- misc test functions --------------------    
-        
-def testBet():
-            
-    p1b = Bet()
-    p1b.make_bet(100)
-    print(p1b.balance)
-    p1b.make_bet(650)
-    print(p1b.balance)
-    print(p1b.status)
-    
-    
-def testDeck():
-    
-    myDeck = Deck()
-    print(myDeck.getCards_count())
-
-    card = myDeck.draw_card()
-    print(card)
-    for el in card:
-        print(el)
-    print(myDeck.getCards_count())
-
-    card = myDeck.draw_card()
-    print(card)
-    for el in card:
-        print(el)
-    print(myDeck.getCards_count())
-    
-    card = myDeck.draw_card()
-    print(card)
-    for el in card:
-        print(el)
-    print(myDeck.getCards_count())
-    
-
-def test_clearing_hand():
-
-    Dl.update_hand(gameDeck.draw_card())
-    Dl.update_hand(gameDeck.draw_card())
-    
-    print(Dl.hand)
-    print(Dl.hand_value)
-    Dl.clear_hand()
-    print(Dl.hand)
-    print(Dl.hand_value)
-    
-def test_initial_game_stage():
-    P1 = Player()
-    Dl = Dealer()
-    
-    gameDeck = Deck()
-       
-    print("\nDealer:\n")
-    
-    Dl.update_hand(gameDeck.draw_card())
-    Dl.update_hand(gameDeck.draw_card())
-    
-    
-    print(Dl.hand)
-    print("Dealer hand value: {}".format(Dl.hand_value))
-    print("Dealer shown hand value: {}".format(Dl.show_init_hand_value()))
-    print("Dealer action hit?: {}".format(Dl.can_hit()))
-    print("Dealer blackjack?: {}".format(Dl.blackjack()))
-    print("Dealer busted?: {}".format(Dl.busted()))
-    
-    print("\nPlayer:\n")
-    
-    print("Player initial balance: {}".format(P1.get_balance()))
-    bamt = 150
-    print("Is the player able to put a bet of ${}?: {}".format(bamt, P1.can_bet(bamt)))
-    if P1.can_bet(bamt):
-        P1.make_bet(bamt)
-    print("Player current balance: {}".format(P1.get_balance()))
-    
-    P1.update_hand(gameDeck.draw_card())
-    P1.update_hand(gameDeck.draw_card())
-    print(P1.hand)
-    print("Player hand value: {}".format(P1.hand_value))
-    print("Player blackjack?: {}".format(P1.blackjack()))
-    print("Player busted?: {}".format(P1.busted()))
-    
-    
-    print(gameDeck.getCards_count())
-    
-    #----------------- game play tests ---------------------------------------
-
-
-
 
 
 class Blackjack():
@@ -436,34 +344,34 @@ class Blackjack():
             elif ans.strip().lower() == "n":
                 flag = False
                 while fflo:
-                    if Dl.blackjack():
+                    if self.Dl.blackjack():
                         fflo = False
                         print("Dealer gets Blackjack! Player Loss!")
                         break
                         
-                    elif Dl.busted():
+                    elif self.Dl.busted():
                         fflo = False
                         print("Dealer Busted! Player Wins!")
                         break
-                    elif Dl.can_hit():
-                        Dl.update_hand(gD.draw_card())
-                        print("Dealer hand: {}".format(Dl.hand))
-                        print("Dealer actual hand value: {}".format(Dl.hand_value))
-                        print("Dealer can hit?: {}".format(Dl.can_hit()))
+                    elif self.Dl.can_hit():
+                        self.Dl.update_hand(gD.draw_card())
+                        print("Dealer hand: {}".format(self.Dl.hand))
+                        print("Dealer actual hand value: {}".format(self.Dl.hand_value))
+                        print("Dealer can hit?: {}".format(self.Dl.can_hit()))
                         
-                        if Dl.blackjack():
+                        if self.Dl.blackjack():
                             fflo = False
                             flag = False
                             print("Dealer gets Blackjack! Player Loss!")
                             break
                         
-                        if Dl.busted():
+                        if self.Dl.busted():
                             fflo = False
                             flag = False
                             print("Dealer Busted! Player Wins!")
                             break
                             
-                        if  Dl.hand_value > self.P1.hand_value:
+                        if  self.Dl.hand_value > self.P1.hand_value:
                             print("Dealer has greater hand value! Player Loss!  -X-")
                             fflo = False
                             flag = False
@@ -473,12 +381,12 @@ class Blackjack():
                         fflo = False
                         flag = False
                         break
-                    elif Dl.hand_value > self.P1.hand_value:
+                    elif self.Dl.hand_value > self.P1.hand_value:
                         print("Dealer has greater hand value! Player Loss!  -Y-")
                         fflo = False
                         flag = False
                         break
-                    elif Dl.hand_value == self.P1.hand_value:
+                    elif self.Dl.hand_value == self.P1.hand_value:
                         print("Push! Tied round!")
                         fflo = False
                         flag = False
@@ -489,17 +397,96 @@ class Blackjack():
                         break
             else:
                 break
+       
+#-------------------- game functions ----------------------
         
-                
+#----------------- misc test functions --------------------    
         
-        
-        
-        
-        
-        
-
-
+def testBet():
+            
+    p1b = Bet()
+    p1b.make_bet(100)
+    print(p1b.balance)
+    p1b.make_bet(650)
+    print(p1b.balance)
+    print(p1b.status)
     
+    
+def testDeck():
+    
+    myDeck = Deck()
+    print(myDeck.getCards_count())
+
+    card = myDeck.draw_card()
+    print(card)
+    for el in card:
+        print(el)
+    print(myDeck.getCards_count())
+
+    card = myDeck.draw_card()
+    print(card)
+    for el in card:
+        print(el)
+    print(myDeck.getCards_count())
+    
+    card = myDeck.draw_card()
+    print(card)
+    for el in card:
+        print(el)
+    print(myDeck.getCards_count())
+    
+
+def test_clearing_hand():
+
+    Dl.update_hand(gameDeck.draw_card())
+    Dl.update_hand(gameDeck.draw_card())
+    
+    print(Dl.hand)
+    print(Dl.hand_value)
+    Dl.clear_hand()
+    print(Dl.hand)
+    print(Dl.hand_value)
+    
+def test_initial_game_stage():
+    P1 = Player()
+    Dl = Dealer()
+    
+    gameDeck = Deck()
+       
+    print("\nDealer:\n")
+    
+    Dl.update_hand(gameDeck.draw_card())
+    Dl.update_hand(gameDeck.draw_card())
+    
+    
+    print(Dl.hand)
+    print("Dealer hand value: {}".format(Dl.hand_value))
+    print("Dealer shown hand value: {}".format(Dl.show_init_hand_value()))
+    print("Dealer action hit?: {}".format(Dl.can_hit()))
+    print("Dealer blackjack?: {}".format(Dl.blackjack()))
+    print("Dealer busted?: {}".format(Dl.busted()))
+    
+    print("\nPlayer:\n")
+    
+    print("Player initial balance: {}".format(P1.get_balance()))
+    bamt = 150
+    print("Is the player able to put a bet of ${}?: {}".format(bamt, P1.can_bet(bamt)))
+    if P1.can_bet(bamt):
+        P1.make_bet(bamt)
+    print("Player current balance: {}".format(P1.get_balance()))
+    
+    P1.update_hand(gameDeck.draw_card())
+    P1.update_hand(gameDeck.draw_card())
+    print(P1.hand)
+    print("Player hand value: {}".format(P1.hand_value))
+    print("Player blackjack?: {}".format(P1.blackjack()))
+    print("Player busted?: {}".format(P1.busted()))
+    
+    
+    print(gameDeck.getCards_count())
+    
+    #----------------- game play tests ---------------------------------------
+
 def game_play_test1():
           
     gD = Deck()
@@ -648,24 +635,19 @@ def game_play_test1():
                     break
         else:
             break
-                    
+
+
+
+
+        
+                
+        
                     
 if __name__ == "__main__":  
     
     game_play_test1()
 
-    if False:          
     
-        gD = Deck()
-        P1 = Player()
-        
-        while not P1.busted():
-            P1.update_hand(gD.draw_card())
-            print("Player hand: {}".format(P1.hand))
-            print("Player hand value: {}".format(P1.hand_value))
-            print("Player blackjack?: {}".format(P1.blackjack()))
-            print("Player busted?: {}".format(P1.busted()))
-            print("\n\n")
     
     
     
