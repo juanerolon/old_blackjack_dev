@@ -24,14 +24,18 @@ class Deck:
         
         self.__n=0
         
+        #this creates only a set of 52 integer indexes stored in a list
         while self.__n < 52:
             self.__cardIndex.append(self.__n+1)
             self.__n+=1
-            
-        random.shuffle(self.__cardIndex)
-        #print(self.__cardIndex)
-    
         
+        #shuffle the index list
+        random.shuffle(self.__cardIndex)
+        
+        self.create_deck()
+
+    def create_deck(self):
+      
         self.__cards[1] = ["Ace", "Ace of Clubs", 11]
         self.__cards[2] = ["2", "Two of Clubs",2]
         self.__cards[3] = ["3", "Three of Clubs",3]
@@ -109,6 +113,7 @@ class Deck:
     def shuffle(self):
         self.__counter = 0
         random.shuffle(self.__cardIndex)
+        self.create_deck()
         
         
 class Bet:
@@ -164,6 +169,8 @@ class Dealer:
         del self.hand[:]
         self.hand_value = 0
         self.hand_ct = 0
+        self.aces_ct = 0
+        self.ace_flag = False
         
     def can_hit(self):
         """Controls when dealer should stand"""
@@ -236,6 +243,8 @@ class Player:
         del self.hand[:]
         self.hand_value = 0
         self.hand_ct = 0
+        self.aces_ct = 0
+        self.ace_flag = False
         
 
 
@@ -377,7 +386,7 @@ class Blackjack():
                             break
                             
                         if  self.Dl.hand_value > self.P1.hand_value:
-                            print("Dealer has greater hand value! Player Loss!  -X-")
+                            print("Dealer has greater hand value! Player Loss!")
                             fflo = False
                             flag = False
                             self.gameFlag = False
@@ -389,7 +398,7 @@ class Blackjack():
                         self.gameFlag = False
                         break
                     elif self.Dl.hand_value > self.P1.hand_value:
-                        print("Dealer has greater hand value! Player Loss!  -Y-")
+                        print("Dealer has greater hand value! Player Loss!")
                         fflo = False
                         flag = False
                         self.gameFlag = False
@@ -412,22 +421,26 @@ class Blackjack():
 if __name__ == "__main__":  
     
    bgame = Blackjack()
-   bgame.make_bets()
    
-   if bgame.gameFlag: bgame.deal()
-   if bgame.gameFlag: bgame.main_loop()
-   print(bgame.gameFlag)
+   keep_play = True
+   while keep_play:
    
-
-    
-    
-    
-    
-            
-            
-        
-        
-    
+       bgame.make_bets()
+       
+       if bgame.gameFlag: bgame.deal()
+       if bgame.gameFlag: bgame.main_loop()
+       
+       ans = input("\n\n Play another round? (Y/N)?")
+       if ans.strip().lower() == "y":
+           keep_play = True
+           bgame.gameFlag = True
+           bgame.P1.clear_hand()
+           bgame.Dl.clear_hand()
+           bgame.gD.shuffle()                         
+       elif ans.strip().lower() == "n":
+            keep_play = False
+       else:
+            continue
 
     
 
