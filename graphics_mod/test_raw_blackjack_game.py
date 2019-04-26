@@ -152,7 +152,7 @@ class Dealer:
         self.hand_value = self.hand_value + self.hand[self.hand_ct][2]
         
         if self.hand_value > 21 and self.ace_flag:
-            self.hand_value = self.had_value - 10
+            self.hand_value = self.hand_value - 10
             print("Dealers got soft hand")
             
         self.hand_ct +=1
@@ -215,7 +215,7 @@ class Player:
         self.hand_value = self.hand_value + self.hand[self.hand_ct][2]
                 
         if self.hand_value > 21 and self.ace_flag:
-            self.hand_value = self.had_value - 10
+            self.hand_value = self.hand_value - 10
             print("Player got soft hand")
             
         self.hand_ct +=1
