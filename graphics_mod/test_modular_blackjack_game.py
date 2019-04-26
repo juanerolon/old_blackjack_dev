@@ -326,6 +326,57 @@ def test_initial_game_stage():
     print(gameDeck.getCards_count())
     
     #----------------- game play tests ---------------------------------------
+
+
+
+
+
+class Blackjack():
+    
+    def __init__(self):
+        
+        self.gD = Deck()
+        self.P1 = Player()
+        self.Dl = Dealer()
+        
+        self.gameFlag = True
+        self.player_balance = 0
+        self.bamt = 0
+        
+    
+    def make_bets(self):
+        
+        flag = True
+        while flag:
+            self.bamt = 0
+            if self.P1.can_bet(self.bamt):
+                ans = input("Make bet (Y/N)?")
+                if ans.strip().lower() == "y":
+                    flag = False
+                    self.bamt = eval(input("Enter amount:"))
+                    self.P1.make_bet(self.bamt)
+                elif ans.strip().lower() == "n":
+                    ans2 = input("Stop game (Y/N)?")
+                    if ans2.strip().lower() == "y":
+                        self.gameFlag = False
+                        break
+                    elif ans2.strip().lower() == "n":
+                        continue
+                    else:
+                        continue
+                else:
+                    continue
+            else:
+                flag = False
+                
+        
+        
+        
+        
+        
+        
+
+
     
 def game_play_test1():
           
