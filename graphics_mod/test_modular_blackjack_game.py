@@ -344,6 +344,8 @@ class Blackjack():
         self.bamt = 0
         
     
+    #--X--
+    
     def make_bets(self):
         
         flag = True
@@ -368,6 +370,126 @@ class Blackjack():
                     continue
             else:
                 flag = False
+                
+                
+    #--X--
+    
+    def deal(self):
+        
+        flag = True
+        while flag:
+            
+            ans = input("Deal (Y/N)?")
+            if ans.strip().lower() == "y":
+                flag = False
+                self.Dl.update_hand(self.gD.draw_card())
+                self.Dl.update_hand(self.gD.draw_card())
+                self.P1.update_hand(self.gD.draw_card())
+                self.P1.update_hand(self.gD.draw_card())
+                print("Dealer hand: {}".format(self.Dl.hand))
+                print("Dealer shown hand value: {}".format(self.Dl.show_init_hand_value()))
+                print("Dealer actual hand value: {}".format(self.Dl.hand_value))
+                print("Dealer can hit?: {}".format(self.Dl.can_hit()))
+                print("Player hand: {}".format(self.P1.hand))
+                print("Player hand value: {}".format(self.P1.hand_value))
+                if self.P1.blackjack():
+                    print("Player gets blackjack! Player wins!")               
+                    self.gameFlag=False
+                    break
+            elif ans.strip().lower() == "n":
+                ans2 = input("Stop game (Y/N)?")
+                if ans2.strip().lower() == "y":
+                    self.gameFlag = False
+                    break
+                elif ans2.strip().lower() == "n":
+                    continue
+                else:
+                    continue
+            else:
+                continue
+            
+    #--X--
+            
+    def main_loop():
+        flag = True
+        fflo = True
+        while flag:
+            ans = input("Hit (Y/N)?")
+            if ans.strip().lower() == "y":
+                self.P1.update_hand(gD.draw_card())
+                print("Player hand: {}".format(self.P1.hand))
+                print("Player hand value: {}".format(self.P1.hand_value))
+                print("Player blackjack?: {}".format(self.P1.blackjack()))
+                print("Player busted?: {}".format(self.P1.busted()))
+                if self.P1.busted():
+                    print("Player busted! Player Loss!")
+                    flag = False
+                    break
+                elif self.P1.blackjack():
+                    print("Player gets blackjack! Player wins!")
+                    flag = False
+                    gameFlag = False
+                    break            
+                else:
+                    pass
+                    
+            elif ans.strip().lower() == "n":
+                flag = False
+                while fflo:
+                    if Dl.blackjack():
+                        fflo = False
+                        print("Dealer gets Blackjack! Player Loss!")
+                        break
+                        
+                    elif Dl.busted():
+                        fflo = False
+                        print("Dealer Busted! Player Wins!")
+                        break
+                    elif Dl.can_hit():
+                        Dl.update_hand(gD.draw_card())
+                        print("Dealer hand: {}".format(Dl.hand))
+                        print("Dealer actual hand value: {}".format(Dl.hand_value))
+                        print("Dealer can hit?: {}".format(Dl.can_hit()))
+                        
+                        if Dl.blackjack():
+                            fflo = False
+                            flag = False
+                            print("Dealer gets Blackjack! Player Loss!")
+                            break
+                        
+                        if Dl.busted():
+                            fflo = False
+                            flag = False
+                            print("Dealer Busted! Player Wins!")
+                            break
+                            
+                        if  Dl.hand_value > self.P1.hand_value:
+                            print("Dealer has greater hand value! Player Loss!  -X-")
+                            fflo = False
+                            flag = False
+                            break                       
+                    elif self.P1.hand_value > self.Dl.hand_value:
+                        print("Player has greater hand value! Player Wins!")
+                        fflo = False
+                        flag = False
+                        break
+                    elif Dl.hand_value > self.P1.hand_value:
+                        print("Dealer has greater hand value! Player Loss!  -Y-")
+                        fflo = False
+                        flag = False
+                        break
+                    elif Dl.hand_value == self.P1.hand_value:
+                        print("Push! Tied round!")
+                        fflo = False
+                        flag = False
+                        break
+                        
+                    else:
+                        print("Unknown condition")
+                        break
+            else:
+                break
+        
                 
         
         
