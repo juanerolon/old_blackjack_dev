@@ -262,6 +262,7 @@ class Blackjack():
         self.Dl = Dealer()
         
         self.roundFlag = True
+        self.gameFlag = True
         self.bamt = 0
         
         self.pwins_ct = 0
@@ -285,6 +286,7 @@ class Blackjack():
                     ans2 = input("Stop game (Y/N)?")
                     if ans2.strip().lower() == "y":
                         self.roundFlag = False
+                        self.gameFlag = False
                         break
                     elif ans2.strip().lower() == "n":
                         continue
@@ -328,6 +330,7 @@ class Blackjack():
                 if ans2.strip().lower() == "y":
                     self.P1.blnc_up_won(self.bamt)
                     self.roundFlag = False
+                    self.gameFlag = False
                     break
                 elif ans2.strip().lower() == "n":
                     continue
@@ -453,7 +456,7 @@ if __name__ == "__main__":
     
    bgame = Blackjack()
    
-   while bgame.roundFlag:
+   while bgame.gameFlag:
    
        if bgame.roundFlag: print("Player balance: {}".format(bgame.P1.get_balance()))
        if bgame.roundFlag: bgame.make_bets()
@@ -470,7 +473,7 @@ if __name__ == "__main__":
                bgame.Dl.clear_hand()
                bgame.gD.shuffle()                         
            elif ans.strip().lower() == "n":
-                bgame.roundFlag = False
+                bgame.gameFlag = False
            else:
                 continue
             
