@@ -9,6 +9,7 @@ Created on Tue Apr 23 15:34:30 2019
 """
 
 import sys
+import os
 import random
 
 #----------------------------- classes ----------------------------------------
@@ -121,18 +122,13 @@ class Bet:
     def __init__(self):
         
         self.balance = 500
-        self.status = True
+        
                 
     def make_bet(self,amount):
         self.balance = self.balance - amount
 
     def can_bet(self,amount):
-        if (amount > self.balance and self.balance > 0):
-            self.status = False
-            return False
-        else:
-            self.status = True
-            return True
+       return (amount <= self.balance) and (self.balance > 0)
 
 
 
@@ -281,7 +277,15 @@ class Blackjack():
                 if ans.strip().lower() == "y":
                     flag = False
                     self.bamt = eval(input("Enter amount:"))
-                    self.P1.make_bet(self.bamt)
+                    
+                    fx = True
+                    while fx:
+                        if self.P1.can_bet(self.bamt):
+                            self.P1.make_bet(self.bamt)
+                            fx = False
+                        else:
+                            self.bamt = eval(input("Insuficient funds. Re-enter amount:"))
+                                          
                 elif ans.strip().lower() == "n":
                     ans2 = input("Stop game (Y/N)?")
                     if ans2.strip().lower() == "y":
@@ -295,7 +299,9 @@ class Blackjack():
                 else:
                     continue
             else:
+                print("Not enough funds to play")
                 flag = False
+                self.gameFlag = False
                 
                 
     #--X--
@@ -321,7 +327,7 @@ class Blackjack():
                 if self.P1.blackjack():
                     print("Player gets blackjack! Player wins!")               
                     self.roundFlag=False
-                    self.pwins +=1
+                    self.pwins_ct +=1
                     self.ngmes_ct +=1
                     self.P1.blnc_up_won(2.0 * self.bamt)
                     break
@@ -384,7 +390,7 @@ class Blackjack():
                         self.roundFlag = False
                         print("Dealer Busted! Player Wins!")
                         self.P1.blnc_up_won(2.0 * self.bamt)
-                        self.pwins +=1
+                        self.pwins_ct +=1
                         self.ngmes_ct +=1
                         break
                     elif self.Dl.can_hit():
@@ -407,7 +413,7 @@ class Blackjack():
                             self.roundFlag = False
                             print("Dealer Busted! Player Wins!")
                             self.P1.blnc_up_won(2.0 * self.bamt)
-                            self.pwins +=1
+                            self.pwins_ct +=1
                             self.ngmes_ct +=1
                             break
                             
@@ -424,7 +430,7 @@ class Blackjack():
                         fflo = False
                         flag = False
                         self.roundFlag = False
-                        self.pwins +=1
+                        self.pwins_ct +=1
                         self.ngmes_ct +=1
                         break
                     elif self.Dl.hand_value > self.P1.hand_value:
@@ -457,17 +463,17 @@ if __name__ == "__main__":
    bgame = Blackjack()
    
    while bgame.gameFlag:
-   
-       if bgame.roundFlag: print("Player balance: {}".format(bgame.P1.get_balance()))
-       if bgame.roundFlag: bgame.make_bets()
+           
+       print("Your balance is : {}".format(bgame.P1.get_balance())) 
+        
+       bgame.make_bets()
+                
+       if bgame.gameFlag : bgame.deal()
+       if bgame.roundFlag : bgame.main_loop()
        
-       if bgame.roundFlag: bgame.deal()
-       if bgame.roundFlag: bgame.main_loop()
-       
-       if bgame.roundFlag: 
+       if bgame.gameFlag and bgame.P1.get_balance() > 0: 
            ans = input("\n\n Play another round? (Y/N)?")
            if ans.strip().lower() == "y":
-               keep_play = True
                bgame.roundFlag = True
                bgame.P1.clear_hand()
                bgame.Dl.clear_hand()
@@ -479,8 +485,8 @@ if __name__ == "__main__":
             
        
    
-   print("\n\nPlayer end balance\n\n: {}".format(bgame.P1.get_balance())) 
-   print("\n\nGame stats:\n\n") 
+   print("\nPlayer end balance: {}\n".format(bgame.P1.get_balance())) 
+   print("\nGame stats:\n") 
    print("Number of rounds played : {}".format(bgame.ngmes_ct))
    print("Number of wins by player: {}".format(bgame.pwins_ct))
 
