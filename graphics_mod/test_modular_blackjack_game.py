@@ -158,7 +158,7 @@ class Dealer:
         
         if self.hand_value > 21 and self.ace_flag:
             self.hand_value = self.hand_value - 10
-            print("Dealers got soft hand")
+            print("Dealer got soft hand")
             
         self.hand_ct +=1
         
@@ -212,7 +212,7 @@ class Player:
     def get_balance(self):
         return self.__sysbet.balance
 
-    def blnc_up_won(upamt):
+    def blnc_up_won(self,upamt):
         self.__sysbet.balance += upamt
         
     
@@ -227,7 +227,8 @@ class Player:
                 
         if self.hand_value > 21 and self.ace_flag:
             self.hand_value = self.hand_value - 10
-            print("Player got soft hand")
+            self.ace_flag = False
+            print("Player got a soft hand")
             
         self.hand_ct +=1
         
@@ -260,7 +261,7 @@ class Blackjack():
         self.P1 = Player()
         self.Dl = Dealer()
         
-        self.gameFlag = True
+        self.roundFlag = True
         self.bamt = 0
         
         self.pwins_ct = 0
@@ -283,7 +284,7 @@ class Blackjack():
                 elif ans.strip().lower() == "n":
                     ans2 = input("Stop game (Y/N)?")
                     if ans2.strip().lower() == "y":
-                        self.gameFlag = False
+                        self.roundFlag = False
                         break
                     elif ans2.strip().lower() == "n":
                         continue
@@ -317,7 +318,7 @@ class Blackjack():
                 print("Player hand value: {}".format(self.P1.hand_value))
                 if self.P1.blackjack():
                     print("Player gets blackjack! Player wins!")               
-                    self.gameFlag=False
+                    self.roundFlag=False
                     self.pwins +=1
                     self.ngmes_ct +=1
                     self.P1.blnc_up_won(2.0 * self.bamt)
@@ -325,7 +326,8 @@ class Blackjack():
             elif ans.strip().lower() == "n":
                 ans2 = input("Stop game (Y/N)?")
                 if ans2.strip().lower() == "y":
-                    self.gameFlag = False
+                    self.P1.blnc_up_won(self.bamt)
+                    self.roundFlag = False
                     break
                 elif ans2.strip().lower() == "n":
                     continue
@@ -350,15 +352,15 @@ class Blackjack():
                 if self.P1.busted():
                     print("Player busted! Player Loss!")
                     flag = False
-                    self.gameFlag = False
+                    self.roundFlag = False
                     self.ngmes_ct +=1
                     break
                 elif self.P1.blackjack():
                     print("Player gets blackjack! Player wins!")
                     self.P1.blnc_up_won(2.0 * self.bamt)
                     flag = False
-                    self.gameFlag = False
-                    self.pwins +=1
+                    self.roundFlag = False
+                    self.pwins_ct +=1
                     self.ngmes_ct +=1
                     break            
                 else:
@@ -370,13 +372,13 @@ class Blackjack():
                     if self.Dl.blackjack():
                         fflo = False
                         print("Dealer gets Blackjack! Player Loss!")
-                        self.gameFlag = False
+                        self.roundFlag = False
                         self.ngmes_ct +=1
                         break
                         
                     elif self.Dl.busted():
                         fflo = False
-                        self.gameFlag = False
+                        self.roundFlag = False
                         print("Dealer Busted! Player Wins!")
                         self.P1.blnc_up_won(2.0 * self.bamt)
                         self.pwins +=1
@@ -391,7 +393,7 @@ class Blackjack():
                         if self.Dl.blackjack():
                             fflo = False
                             flag = False
-                            self.gameFlag = False
+                            self.roundFlag = False
                             print("Dealer gets Blackjack! Player Loss!")
                             self.ngmes_ct +=1
                             break
@@ -399,7 +401,7 @@ class Blackjack():
                         if self.Dl.busted():
                             fflo = False
                             flag = False
-                            self.gameFlag = False
+                            self.roundFlag = False
                             print("Dealer Busted! Player Wins!")
                             self.P1.blnc_up_won(2.0 * self.bamt)
                             self.pwins +=1
@@ -410,7 +412,7 @@ class Blackjack():
                             print("Dealer has greater hand value! Player Loss!")
                             fflo = False
                             flag = False
-                            self.gameFlag = False
+                            self.roundFlag = False
                             self.ngmes_ct +=1
                             break                       
                     elif self.P1.hand_value > self.Dl.hand_value:
@@ -418,7 +420,7 @@ class Blackjack():
                         self.P1.blnc_up_won(2.0 * self.bamt)
                         fflo = False
                         flag = False
-                        self.gameFlag = False
+                        self.roundFlag = False
                         self.pwins +=1
                         self.ngmes_ct +=1
                         break
@@ -426,14 +428,15 @@ class Blackjack():
                         print("Dealer has greater hand value! Player Loss!")
                         fflo = False
                         flag = False
-                        self.gameFlag = False
+                        self.roundFlag = False
                         self.ngmes_ct +=1
                         break
                     elif self.Dl.hand_value == self.P1.hand_value:
                         print("Push! Tied round!")
+                        self.P1.blnc_up_won(self.bamt)
                         fflo = False
                         flag = False
-                        self.gameFlag = False
+                        self.roundFlag = False
                         self.ngmes_ct +=1
                         break                        
                     else:
@@ -450,30 +453,33 @@ if __name__ == "__main__":
     
    bgame = Blackjack()
    
-   keep_play = True
-   while keep_play:
+   while bgame.roundFlag:
    
-       bgame.P1.
-       bgame.make_bets()
+       if bgame.roundFlag: print("Player balance: {}".format(bgame.P1.get_balance()))
+       if bgame.roundFlag: bgame.make_bets()
        
-       if bgame.gameFlag: bgame.deal()
-       if bgame.gameFlag: bgame.main_loop()
+       if bgame.roundFlag: bgame.deal()
+       if bgame.roundFlag: bgame.main_loop()
        
-       ans = input("\n\n Play another round? (Y/N)?")
-       if ans.strip().lower() == "y":
-           keep_play = True
-           bgame.gameFlag = True
-           bgame.P1.clear_hand()
-           bgame.Dl.clear_hand()
-           bgame.gD.shuffle()                         
-       elif ans.strip().lower() == "n":
-            keep_play = False
-       else:
-            continue
-        
+       if bgame.roundFlag: 
+           ans = input("\n\n Play another round? (Y/N)?")
+           if ans.strip().lower() == "y":
+               keep_play = True
+               bgame.roundFlag = True
+               bgame.P1.clear_hand()
+               bgame.Dl.clear_hand()
+               bgame.gD.shuffle()                         
+           elif ans.strip().lower() == "n":
+                bgame.roundFlag = False
+           else:
+                continue
+            
+       
+   
+   print("\n\nPlayer end balance\n\n: {}".format(bgame.P1.get_balance())) 
    print("\n\nGame stats:\n\n") 
-   print("Number of rounds played : {}".format(bgame.ngmes))
-   print("Number of wins by palyer: {}".format(bgame.ngmes))
+   print("Number of rounds played : {}".format(bgame.ngmes_ct))
+   print("Number of wins by player: {}".format(bgame.pwins_ct))
 
     
     
