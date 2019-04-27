@@ -210,7 +210,11 @@ class Player:
         self.__sysbet.make_bet(amount)
         
     def get_balance(self):
-        return self.__sysbet.balance       
+        return self.__sysbet.balance
+
+    def blnc_up_won(upamt):
+        self.__sysbet.balance += upamt
+        
     
     def update_hand(self, card):
         
@@ -257,8 +261,10 @@ class Blackjack():
         self.Dl = Dealer()
         
         self.gameFlag = True
-        self.player_balance = 0
         self.bamt = 0
+        
+        self.pwins_ct = 0
+        self.ngmes_ct = 0
         
     
     #--X--
@@ -312,6 +318,9 @@ class Blackjack():
                 if self.P1.blackjack():
                     print("Player gets blackjack! Player wins!")               
                     self.gameFlag=False
+                    self.pwins +=1
+                    self.ngmes_ct +=1
+                    self.P1.blnc_up_won(2.0 * self.bamt)
                     break
             elif ans.strip().lower() == "n":
                 ans2 = input("Stop game (Y/N)?")
@@ -342,11 +351,15 @@ class Blackjack():
                     print("Player busted! Player Loss!")
                     flag = False
                     self.gameFlag = False
+                    self.ngmes_ct +=1
                     break
                 elif self.P1.blackjack():
                     print("Player gets blackjack! Player wins!")
+                    self.P1.blnc_up_won(2.0 * self.bamt)
                     flag = False
                     self.gameFlag = False
+                    self.pwins +=1
+                    self.ngmes_ct +=1
                     break            
                 else:
                     pass
@@ -358,12 +371,16 @@ class Blackjack():
                         fflo = False
                         print("Dealer gets Blackjack! Player Loss!")
                         self.gameFlag = False
+                        self.ngmes_ct +=1
                         break
                         
                     elif self.Dl.busted():
                         fflo = False
                         self.gameFlag = False
                         print("Dealer Busted! Player Wins!")
+                        self.P1.blnc_up_won(2.0 * self.bamt)
+                        self.pwins +=1
+                        self.ngmes_ct +=1
                         break
                     elif self.Dl.can_hit():
                         self.Dl.update_hand(self.gD.draw_card())
@@ -376,6 +393,7 @@ class Blackjack():
                             flag = False
                             self.gameFlag = False
                             print("Dealer gets Blackjack! Player Loss!")
+                            self.ngmes_ct +=1
                             break
                         
                         if self.Dl.busted():
@@ -383,6 +401,9 @@ class Blackjack():
                             flag = False
                             self.gameFlag = False
                             print("Dealer Busted! Player Wins!")
+                            self.P1.blnc_up_won(2.0 * self.bamt)
+                            self.pwins +=1
+                            self.ngmes_ct +=1
                             break
                             
                         if  self.Dl.hand_value > self.P1.hand_value:
@@ -390,27 +411,34 @@ class Blackjack():
                             fflo = False
                             flag = False
                             self.gameFlag = False
+                            self.ngmes_ct +=1
                             break                       
                     elif self.P1.hand_value > self.Dl.hand_value:
                         print("Player has greater hand value! Player Wins!")
+                        self.P1.blnc_up_won(2.0 * self.bamt)
                         fflo = False
                         flag = False
                         self.gameFlag = False
+                        self.pwins +=1
+                        self.ngmes_ct +=1
                         break
                     elif self.Dl.hand_value > self.P1.hand_value:
                         print("Dealer has greater hand value! Player Loss!")
                         fflo = False
                         flag = False
                         self.gameFlag = False
+                        self.ngmes_ct +=1
                         break
                     elif self.Dl.hand_value == self.P1.hand_value:
                         print("Push! Tied round!")
                         fflo = False
                         flag = False
                         self.gameFlag = False
+                        self.ngmes_ct +=1
                         break                        
                     else:
                         print("Unknown condition")
+                        self.ngmes_ct +=1
                         break
             else:
                 break
@@ -425,6 +453,7 @@ if __name__ == "__main__":
    keep_play = True
    while keep_play:
    
+       bgame.P1.
        bgame.make_bets()
        
        if bgame.gameFlag: bgame.deal()
@@ -441,8 +470,10 @@ if __name__ == "__main__":
             keep_play = False
        else:
             continue
-
-    
+        
+   print("\n\nGame stats:\n\n") 
+   print("Number of rounds played : {}".format(bgame.ngmes))
+   print("Number of wins by palyer: {}".format(bgame.ngmes))
 
     
     
