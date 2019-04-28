@@ -267,6 +267,18 @@ class Blackjack():
     
     #--X--
     
+    def get_amount(self):
+        fx=True
+        while fx:
+            amt = input("Enter amount: ").strip().replace(" ", "")
+    
+            if amt.isdigit():
+                amt = eval(amt)
+                fx = False
+            else:
+                print("Not a number. Re-enter amount")
+        return amt
+    
     def make_bets(self):
         
         flag = True
@@ -276,7 +288,7 @@ class Blackjack():
                 ans = input("Make bet (Y/N)?")
                 if ans.strip().lower() == "y":
                     flag = False
-                    self.bamt = eval(input("Enter amount:"))
+                    self.bamt = self.get_amount()
                     
                     fx = True
                     while fx:
@@ -284,7 +296,8 @@ class Blackjack():
                             self.P1.make_bet(self.bamt)
                             fx = False
                         else:
-                            self.bamt = eval(input("Insuficient funds. Re-enter amount:"))
+                            print("Bet exceeds your balance. Re-enter your bet")
+                            self.bamt = self.get_amount()
                                           
                 elif ans.strip().lower() == "n":
                     ans2 = input("Stop game (Y/N)?")
@@ -465,7 +478,9 @@ class Blackjack():
 
 
                     
-if __name__ == "__main__":  
+if __name__ == "__main__":
+    
+   os.system("clear") 
     
    bgame = Blackjack()
    
