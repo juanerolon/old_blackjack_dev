@@ -19,7 +19,8 @@ if __name__ == "__main__":
    input("Press Enter to read game instructions...")
    disp_instruct()
    input("Press Enter to start the game...")
-   os.system("clear") 
+   os.system("clear")
+   disp_header()
     
    bgame = Blackjack()
    
@@ -36,6 +37,7 @@ if __name__ == "__main__":
            ans = input("\n\n Play another round? (y/n)? Enter y for Yes, n for No: ")
            if ans.strip().lower() == "y":
                os.system("clear")
+               disp_header()
                bgame.roundFlag = True
                bgame.P1.clear_hand()
                bgame.Dl.clear_hand()
