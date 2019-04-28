@@ -60,6 +60,3 @@ def disp_intro():
     input("Press Enter to start the game...")
     
     
-if __name__ == "__main__":
-    
-    disp_intro()
