@@ -32,6 +32,7 @@ if __name__ == "__main__":
        if bgame.gameFlag and bgame.P1.get_balance() > 0: 
            ans = input("\n\n Play another round? (y/n)? Enter y for Yes, n for No: ")
            if ans.strip().lower() == "y":
+               os.system("clear")
                bgame.roundFlag = True
                bgame.P1.clear_hand()
                bgame.Dl.clear_hand()
