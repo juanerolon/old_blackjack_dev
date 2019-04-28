@@ -47,7 +47,7 @@ class Blackjack():
         while flag:
             self.bamt = 0
             if self.P1.can_bet(self.bamt):
-                ans = input("Make bet (Y/N)?")
+                ans = input("Make bet (y/n)? Enter y for Yes, n for No: ")
                 if ans.strip().lower() == "y":
                     flag = False
                     self.bamt = self.get_amount()
@@ -86,7 +86,7 @@ class Blackjack():
         flag = True
         while flag:
             
-            ans = input("Deal (Y/N)?")
+            ans = input("Deal (y/n)? Enter y for Yes, n for No: ")
             if ans.strip().lower() == "y":
                 flag = False
                 self.Dl.update_hand(self.gD.draw_card())
@@ -135,7 +135,7 @@ class Blackjack():
         fflo = True
         dealerDraws = 0
         while flag:
-            ans = input("Hit (Y/N)?")
+            ans = input("Hit (y/n)? Enter y for Yes (Hit), n for No (Stand): ")
             if ans.strip().lower() == "y":
                 self.P1.update_hand(self.gD.draw_card())
                 print("")
@@ -165,6 +165,7 @@ class Blackjack():
                     pass
                     
             elif ans.strip().lower() == "n":
+                print("Player stands")
                 flag = False
                 while fflo:
                     if self.Dl.blackjack():
