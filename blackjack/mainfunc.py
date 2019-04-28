@@ -8,14 +8,17 @@ Created on Sun Apr 28 13:05:00 2019
 
 import os
 
-from disp_intro import disp_intro
+from disp_intro import disp_header, disp_instruct
 from gameplay import Blackjack
 
 
 
 if __name__ == "__main__":
    
-   disp_intro() 
+   disp_header()
+   input("Press Enter to read game instructions...")
+   disp_instruct()
+   input("Press Enter to start the game...")
    os.system("clear") 
     
    bgame = Blackjack()
