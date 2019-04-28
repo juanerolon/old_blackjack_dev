@@ -7,11 +7,15 @@ Created on Sun Apr 28 13:05:00 2019
 """
 
 import os
+
+from disp_intro import disp_intro
 from gameplay import Blackjack
 
 
+
 if __name__ == "__main__":
-    
+   
+   disp_intro() 
    os.system("clear") 
     
    bgame = Blackjack()
@@ -26,7 +30,7 @@ if __name__ == "__main__":
        if bgame.roundFlag : bgame.main_loop()
        
        if bgame.gameFlag and bgame.P1.get_balance() > 0: 
-           ans = input("\n\n Play another round? (Y/N)?")
+           ans = input("\n\n Play another round? (y/n)? Enter y for Yes, n for No: ")
            if ans.strip().lower() == "y":
                bgame.roundFlag = True
                bgame.P1.clear_hand()
