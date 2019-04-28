@@ -132,6 +132,7 @@ class Blackjack():
     def main_loop(self):
         flag = True
         fflo = True
+        dealerDraws = 0
         while flag:
             ans = input("Hit (Y/N)?")
             if ans.strip().lower() == "y":
@@ -175,11 +176,15 @@ class Blackjack():
                         self.ngmes_ct +=1
                         break
                     elif self.Dl.can_hit():
+                        #dealer keeps drawing card from deck until h17 rule kicks in
+                        dealerDraws += 1
                         self.Dl.update_hand(self.gD.draw_card())
                         print("")
-                        print("Dealer hand: {}".format(self.Dl.hand))
-                        print("Dealer actual hand value: {}".format(self.Dl.hand_value))
-                        print("Dealer can hit?: {}".format(self.Dl.can_hit()))
+                        print("Dealer hand in draw {}: {}".format(dealerDraws, self.Dl.hand))
+                        print("Dealer hand value: {}".format(self.Dl.hand_value))
+                        print("")
+                        if False:
+                            print("Dealer can hit?: {}".format(self.Dl.can_hit()))
                         
                         if self.Dl.blackjack():
                             fflo = False

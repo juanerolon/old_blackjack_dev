@@ -121,7 +121,7 @@ class Bet:
     
     def __init__(self):
         
-        self.balance = 500
+        self.balance = 1000
         
                 
     def make_bet(self,amount):

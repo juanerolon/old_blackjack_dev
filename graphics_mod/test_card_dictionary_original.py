@@ -8,6 +8,36 @@ Created on Wed Apr 24 16:38:46 2019
 
 import random
 
+
+class Aox:
+    
+    def __init__(self,x):
+        
+        self.x = x
+        
+    def isgfive(self):
+        
+        return self.x > 5
+    
+    def cond(self):
+        if self.isgfive():
+            print(" x > 5")
+            
+    def printa(self):
+        
+        print(self.x)
+            
+
+            
+def test2():
+    
+    a = Aox(6)
+    
+    a.cond()
+    a.printa()
+    
+    
+
 def test_deck():
 
     deck = {}
@@ -93,4 +123,8 @@ def test_deck():
         
     print("\n")
     print("Remaining deck size: {}\n".format(len(deck)))
+    
+if __name__ == "__main__":
+    
+    test2()
     
