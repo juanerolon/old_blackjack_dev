@@ -46,10 +46,14 @@ if __name__ == "__main__":
                 bgame.gameFlag = False
            else:
                 continue
-            
-       
-   
+              
    print("\nPlayer end balance: {}\n".format(bgame.P1.get_balance())) 
    print("\nGame stats:\n") 
    print("Number of rounds played : {}".format(bgame.ngmes_ct))
    print("Number of wins by player: {}".format(bgame.pwins_ct))
+   print("Number of ties by player: {}".format(bgame.ties_ct))
+   try:
+       print("Winning percentage: {}".format(round(bgame.pwins_ct/bgame.ngmes_ct,2)))
+   except:
+       print("Winning percentage: Not Available")
+       

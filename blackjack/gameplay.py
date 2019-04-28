@@ -25,8 +25,9 @@ class Blackjack():
         
         self.pwins_ct = 0
         self.ngmes_ct = 0
-        
-    
+        self.ties_ct = 0
+      
+          
     #--X--
     
     def get_amount(self):
@@ -263,6 +264,7 @@ class Blackjack():
                         print("Dealer's revealed full hand: {}".format(self.Dl.hand))
                         print("Dealer's hand value: {}".format(self.Dl.hand_value))
                         print("Push! Tied round!")
+                        self.ties_ct +=1
                         self.P1.blnc_up_won(self.bamt)
                         fflo = False
                         flag = False
