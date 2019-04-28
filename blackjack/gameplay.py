@@ -62,7 +62,7 @@ class Blackjack():
                             self.bamt = self.get_amount()
                                           
                 elif ans.strip().lower() == "n":
-                    ans2 = input("Stop game (Y/N)?")
+                    ans2 = input("Stop the game (y/n)? Enter y for Yes, n for No: ")
                     if ans2.strip().lower() == "y":
                         self.roundFlag = False
                         self.gameFlag = False
@@ -115,7 +115,7 @@ class Blackjack():
                     self.P1.blnc_up_won(2.0 * self.bamt)
                     break
             elif ans.strip().lower() == "n":
-                ans2 = input("Stop game (Y/N)?")
+                ans2 = input("Stop the game (y/n)? Enter y for Yes, n for No: ")
                 if ans2.strip().lower() == "y":
                     self.P1.blnc_up_won(self.bamt)
                     self.roundFlag = False
