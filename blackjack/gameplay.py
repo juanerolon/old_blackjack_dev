@@ -94,18 +94,19 @@ class Blackjack():
                 self.P1.update_hand(self.gD.draw_card())
                 self.P1.update_hand(self.gD.draw_card())             
                 face_up_card = self.Dl.getFace_up_card()
-                print("Dealer hand (one card face-up): {}".format(face_up_card))
-                print("Dealer hand value (one card face-up): {}".format(face_up_card[2]))
-                
+                print("")
+                print("Dealer's hand (one card face-up): {}".format(face_up_card))
+                print("Dealer's hand value (one card face-up): {}".format(face_up_card[2]))
+                print("")
                 #set to True for testing
                 if False:
-                    print("Dealer full hand: {}".format(self.Dl.hand))
-                    print("Dealer full hand value: {}".format(self.Dl.hand_value))
+                    print("Dealer's full hand: {}".format(self.Dl.hand))
+                    print("Dealer's full hand value: {}".format(self.Dl.hand_value))
                     
                 print("")
-                print("Player hand: {}".format(self.P1.hand))
-                print("Player hand value: {}".format(self.P1.hand_value))
-                
+                print("Player's hand: {}".format(self.P1.hand))
+                print("Player's hand value: {}".format(self.P1.hand_value))
+                print("")
                 if self.P1.blackjack():
                     print("Player gets blackjack! Player wins!")               
                     self.roundFlag=False
@@ -138,16 +139,22 @@ class Blackjack():
             if ans.strip().lower() == "y":
                 self.P1.update_hand(self.gD.draw_card())
                 print("")
-                print("Player hand: {}".format(self.P1.hand))
-                print("Player hand value: {}".format(self.P1.hand_value))
+                print("Player's hand: {}".format(self.P1.hand))
+                print("Player's hand value: {}".format(self.P1.hand_value))
+                print("")
                 if self.P1.busted():
                     print("Player busted! Player Loss!")
+                    print("Dealer's revealed full hand: {}".format(self.Dl.hand))
+                    print("Dealer's hand value: {}".format(self.Dl.hand_value))
                     flag = False
                     self.roundFlag = False
                     self.ngmes_ct +=1
                     break
                 elif self.P1.blackjack():
+                    print("")
                     print("Player gets blackjack! Player wins!")
+                    print("Dealer's revealed full hand: {}".format(self.Dl.hand))
+                    print("Dealer's hand value: {}".format(self.Dl.hand_value))
                     self.P1.blnc_up_won(2.0 * self.bamt)
                     flag = False
                     self.roundFlag = False
@@ -162,6 +169,9 @@ class Blackjack():
                 while fflo:
                     if self.Dl.blackjack():
                         fflo = False
+                        print("")
+                        print("Dealer's revealed full hand: {}".format(self.Dl.hand))
+                        print("Dealer's hand value: {}".format(self.Dl.hand_value))
                         print("Dealer gets Blackjack! Player Loss!")
                         self.roundFlag = False
                         self.ngmes_ct +=1
@@ -170,6 +180,9 @@ class Blackjack():
                     elif self.Dl.busted():
                         fflo = False
                         self.roundFlag = False
+                        print("")
+                        print("Dealer's revealed full hand: {}".format(self.Dl.hand))
+                        print("Dealer's hand value: {}".format(self.Dl.hand_value))
                         print("Dealer Busted! Player Wins!")
                         self.P1.blnc_up_won(2.0 * self.bamt)
                         self.pwins_ct +=1
@@ -180,8 +193,10 @@ class Blackjack():
                         dealerDraws += 1
                         self.Dl.update_hand(self.gD.draw_card())
                         print("")
-                        print("Dealer hand in draw {}: {}".format(dealerDraws, self.Dl.hand))
-                        print("Dealer hand value: {}".format(self.Dl.hand_value))
+                        print("Dealer has drawn a card... counting: {}".format(dealerDraws))
+                        if False:
+                            print("Dealer'a hand in draw {}: {}".format(dealerDraws, self.Dl.hand))
+                            print("Dealer'a hand value: {}".format(self.Dl.hand_value))
                         print("")
                         if False:
                             print("Dealer can hit?: {}".format(self.Dl.can_hit()))
@@ -190,6 +205,9 @@ class Blackjack():
                             fflo = False
                             flag = False
                             self.roundFlag = False
+                            print("")
+                            print("Dealer's revealed full hand: {}".format(self.Dl.hand))
+                            print("Dealer'a hand value: {}".format(self.Dl.hand_value))
                             print("Dealer gets Blackjack! Player Loss!")
                             self.ngmes_ct +=1
                             break
@@ -198,6 +216,9 @@ class Blackjack():
                             fflo = False
                             flag = False
                             self.roundFlag = False
+                            print("")
+                            print("Dealer's revealed full hand: {}".format(self.Dl.hand))
+                            print("Dealer's hand value: {}".format(self.Dl.hand_value))
                             print("Dealer Busted! Player Wins!")
                             self.P1.blnc_up_won(2.0 * self.bamt)
                             self.pwins_ct +=1
@@ -205,6 +226,9 @@ class Blackjack():
                             break
                             
                         if  self.Dl.hand_value > self.P1.hand_value:
+                            print("")
+                            print("Dealer's revealed full hand: {}".format(self.Dl.hand))
+                            print("Dealer's hand value: {}".format(self.Dl.hand_value))
                             print("Dealer has greater hand value! Player Loss!")
                             fflo = False
                             flag = False
@@ -212,6 +236,9 @@ class Blackjack():
                             self.ngmes_ct +=1
                             break                       
                     elif self.P1.hand_value > self.Dl.hand_value:
+                        print("")
+                        print("Dealer's revealed full hand: {}".format(self.Dl.hand))
+                        print("Dealer's hand value: {}".format(self.Dl.hand_value))
                         print("Player has greater hand value! Player Wins!")
                         self.P1.blnc_up_won(2.0 * self.bamt)
                         fflo = False
@@ -221,6 +248,9 @@ class Blackjack():
                         self.ngmes_ct +=1
                         break
                     elif self.Dl.hand_value > self.P1.hand_value:
+                        print("")
+                        print("Dealer's revealed full hand: {}".format(self.Dl.hand))
+                        print("Dealer's hand value: {}".format(self.Dl.hand_value))
                         print("Dealer has greater hand value! Player Loss!")
                         fflo = False
                         flag = False
@@ -228,6 +258,9 @@ class Blackjack():
                         self.ngmes_ct +=1
                         break
                     elif self.Dl.hand_value == self.P1.hand_value:
+                        print("")
+                        print("Dealer's revealed full hand: {}".format(self.Dl.hand))
+                        print("Dealer's hand value: {}".format(self.Dl.hand_value))
                         print("Push! Tied round!")
                         self.P1.blnc_up_won(self.bamt)
                         fflo = False
