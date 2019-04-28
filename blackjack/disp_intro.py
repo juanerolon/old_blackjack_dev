@@ -7,7 +7,15 @@ Created on Sun Apr 28 14:39:41 2019
 """
 import os
 
-def disp_intro():
+
+def disp_header():
+    print("\n"*2)
+    print(u'\u2661 \u2667 \u2664 \u2662 '*12)
+    print(" "*32 + "B L A C K J A C K")
+    print(u'\u2661 \u2667 \u2664 \u2662 '*12)
+    print("\n"*2)
+
+def disp_instruct():
     
     
     instr = u"""
@@ -45,18 +53,12 @@ def disp_intro():
     \U0001F3B2 For the player, winning or losing the game means winning or losing the amount placed as bet.
  
     """
-    
-    print("\n"*3)
-    print(u'\u2661 \u2667 \u2664 \u2662 '*12)
-    print(" "*32 + "B L A C K J A C K")
-    print(u'\u2661 \u2667 \u2664 \u2662 '*12)
-    print("\n"*3)
-    input("Press Enter to read game instructions...")
+        
     os.system('clear')
     print("INSTRUCTIONS:\n")
     print(instr) 
     print("")
     
-    input("Press Enter to start the game...")
+    
     
     
