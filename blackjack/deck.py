@@ -4,7 +4,7 @@
 Created on Sun Apr 28 12:55:45 2019
 
 @author: Juan E Rolon
-       : rolon.math@gmail.com
+       
 """
 
 import random
