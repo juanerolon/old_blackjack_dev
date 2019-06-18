@@ -4,7 +4,7 @@
 Created on Sun Apr 28 12:59:50 2019
 
 @author: Juan E Rolon
-       : rolon.math@gmail.com
+       
 """
 
 class Bet:
